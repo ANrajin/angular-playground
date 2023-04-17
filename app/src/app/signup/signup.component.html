@@ -1,1 +1,40 @@
-<p>signup works!</p>
+<div class="my-5">
+    <div class="w-1/2 mx-auto border rounded-md shadow p-10 bg-slate-50">
+        <form>
+            <h1 class="text-xl mb-5">Reactive Form</h1>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-auto">
+                    <label for="username">User Name</label>
+                    <input type="text" name="username" id="username" class="w-full block rounded-md">
+                </div>
+                <div class="col-auto">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email" class="w-full block rounded-md">
+                </div>
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Gender</legend>
+                        <div class="mt-2 space-y-2" *ngFor="let gender of genders">
+                            <div class="flex items-center gap-x-3">
+                                <input id="{{gender}}" name="gender" type="radio" value="{{gender}}"
+                                    class="h-3 w-3 border-gray-300 text-indigo-600 focus:ring-indigo-600" ngModel>
+                                <label for="{{gender}}"
+                                    class="block text-sm font-medium leading-6 text-gray-900">{{gender}}</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <button type="submit"
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm 
+                        hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                Submit
+            </button>
+            <button type="button"
+                class="rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200 mx-5">
+                Suggest an UserName
+            </button>
+        </form>
+    </div>
+</div>
