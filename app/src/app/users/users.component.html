@@ -1,0 +1,89 @@
+<div class="my-5">
+    <div class="w-1/2 mx-auto border rounded-md shadow p-10 bg-slate-50">
+        <form (ngSubmit)="onSubmit()" #f="ngForm">
+            <h1 class="text-xl mb-5">Template Driven Form</h1>
+            <div class="grid grid-cols-2 gap-4 mb-4" ngModelGroup="userData">
+                <div class="col-auto">
+                    <label for="username">User Name</label>
+                    <input type="text" ngModel name="username" id="username" class="w-full block rounded-md" required>
+                </div>
+                <div class="col-auto">
+                    <label for="email">Email</label>
+                    <input type="email" ngModel name="email" id="email" class="w-full block rounded-md" required email
+                        #email="ngModel">
+                    <small class="block text-red-600" *ngIf="!email.valid && email.touched">
+                        Please enter a valid email!
+                    </small>
+                </div>
+                <div class="col-auto">
+                    <fieldset>
+                        <legend>Gender</legend>
+                        <div class="mt-2 space-y-2" *ngFor="let gender of genders">
+                            <div class="flex items-center gap-x-3">
+                                <input id="{{gender}}" name="gender" type="radio" value="{{gender}}"
+                                    class="h-3 w-3 border-gray-300 text-indigo-600 focus:ring-indigo-600" ngModel>
+                                <label for="{{gender}}"
+                                    class="block text-sm font-medium leading-6 text-gray-900">{{gender}}</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="col-span-2">
+                    <label for="secretQuestion">Secret Questions</label>
+                    <select id="secretQuestion" [ngModel]="defaultQuestion" name="secret" autocomplete="secret"
+                        class="block w-full rounded-md">
+                        <option value="pet">Your first pet?</option>
+                        <option value="teacher">Who is your first teacher? </option>
+                    </select>
+                </div>
+                <div class="col-span-2">
+                    <label for="questionAnswer">Your Answer : <span class="text-blue-800">{{answer}}</span></label>
+                    <textarea name="questionAnswer" [(ngModel)]="answer" id="questionAnswer" rows="3"
+                        class="block w-full rounded-md resize-none"></textarea>
+                </div>
+            </div>
+
+            <button type="submit"
+                class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm 
+                        hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                [disabled]="!f.valid">
+                Submit
+            </button>
+            <button type="button" (click)="suggestUserNameHandler()"
+                class="rounded-md bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm hover:bg-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-200 mx-5">
+                Suggest an UserName
+            </button>
+        </form>
+    </div>
+
+    <div class="w-1/2 mx-auto border rounded-md shadow p-10 bg-slate-50 mt-5" *ngIf="submitted">
+        <h1 class="text-xl mb-5">Your Submitted Data</h1>
+        <div class="mt-6 border-t border-gray-400">
+            <dl class="divide-y divide-gray-400">
+                <div class="p-4 grid grid-cols-3 gap-4">
+                    <dt class="text-sm font-semibold leading-6 text-gray-900">User Name</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-2">{{user.username}}</dd>
+                </div>
+                <div class="p-4 grid grid-cols-3 gap-4">
+                    <dt class="text-sm font-semibold leading-6 text-gray-900">Email</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-2">{{user.email}}</dd>
+                </div>
+                <div class="p-4 grid grid-cols-3 gap-4">
+                    <dt class="text-sm font-semibold leading-6 text-gray-900">Gender</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-2">{{user.gender}}</dd>
+                </div>
+                <div class="p-4 grid grid-cols-3 gap-4">
+                    <dt class="text-sm font-semibold leading-6 text-gray-900">Secret Question</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-2">{{user.secretQuestion}}</dd>
+                </div>
+                <div class="p-4 grid grid-cols-3 gap-4">
+                    <dt class="text-sm font-semibold leading-6 text-gray-900">Question Answer</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 col-span-2">{{user.questionAnswer}}</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
+</div>
