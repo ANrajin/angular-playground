@@ -1,0 +1,8 @@
+<div class="block border py-5 px-10 my-3 rounded shadow" [ngClass]="isComplete ? 'bg-green-100' : 'bg-slate-50'">
+    <h1 class="text-lg text-center font-medium">Counting: {{counter}}</h1>
+</div>
+
+<button type="button" class="border-none rounded bg-teal-100 border-teal-100 hover:bg-teal-200 px-6 py-3"
+    (click)="onActivate()" [disabled]="isActivated">Activate</button>
+
+<p *ngIf="isActivated">User Activated!</p>
