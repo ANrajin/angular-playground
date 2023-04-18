@@ -20,9 +20,9 @@
                         <legend>Gender</legend>
                         <div class="mt-2 space-y-2" *ngFor="let gender of genders">
                             <div class="flex items-center gap-x-3">
-                                <input id="{{gender}}" name="gender" type="radio" value="{{gender}}"
+                                <input [id]="gender" name="gender" type="radio" [value]="gender"
                                     class="h-3 w-3 border-gray-300 text-indigo-600 focus:ring-indigo-600" ngModel>
-                                <label for="{{gender}}"
+                                <label [for]="gender"
                                     class="block text-sm font-medium leading-6 text-gray-900">{{gender}}</label>
                             </div>
                         </div>

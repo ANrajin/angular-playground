@@ -1,26 +1,63 @@
 <div class="my-5">
     <div class="w-1/2 mx-auto border rounded-md shadow p-10 bg-slate-50">
-        <form>
+        <form [formGroup]="signUpForm" (ngSubmit)="onSubmitHandler()">
             <h1 class="text-xl mb-5">Reactive Form</h1>
+            <div class="grid grid-cols-2 gap-4 mb-4" formGroupName="userData">
+                <div class="col-auto">
+                    <label class="mb-2" for="username">User Name</label>
+                    <input type="text" formControlName="username" id="username"
+                        class="w-full block rounded-md h-8 text-sm">
+                    <div
+                        *ngIf="!signUpForm.get('userData.username').valid && signUpForm.get('userData.username').touched">
+                        <span class="block text-red-600"
+                            *ngIf="signUpForm.get('userData.username').errors['required']">This field is
+                            required!</span>
+                        <span class="block text-red-600"
+                            *ngIf="signUpForm.get('userData.username').errors['nameIsForbidden']">This name is
+                            forbidden!</span>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <label class="mb-2" for="email">Email</label>
+                    <input type="email" formControlName="email" id="email" class="w-full block rounded-md h-8 text-sm">
+                    <div *ngIf="!signUpForm.get('userData.email').valid && signUpForm.get('userData.email').touched">
+                        <span class="block text-red-600"
+                            *ngIf="signUpForm.get('userData.email')?.errors['required']">This
+                            field is
+                            required!</span>
+                        <span class="block text-red-600"
+                            *ngIf="signUpForm.get('userData.email').errors['emailIsForbidden']">This email is
+                            forbidden!</span>
+                    </div>
+                </div>
+            </div>
+
             <div class="grid grid-cols-2 gap-4 mb-4">
-                <div class="col-auto">
-                    <label for="username">User Name</label>
-                    <input type="text" name="username" id="username" class="w-full block rounded-md">
-                </div>
-                <div class="col-auto">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" class="w-full block rounded-md">
-                </div>
-                <div class="col-auto">
+                <div class="col-span-2">
                     <fieldset>
-                        <legend>Gender</legend>
+                        <legend class="mb-2">Gender</legend>
                         <div class="mt-2 space-y-2" *ngFor="let gender of genders">
                             <div class="flex items-center gap-x-3">
-                                <input id="{{gender}}" name="gender" type="radio" value="{{gender}}"
-                                    class="h-3 w-3 border-gray-300 text-indigo-600 focus:ring-indigo-600" ngModel>
-                                <label for="{{gender}}"
+                                <input [id]="gender" formControlName="gender" type="radio" [value]="gender"
+                                    class="h-3 w-3 border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <label [for]="gender"
                                     class="block text-sm font-medium leading-6 text-gray-900">{{gender}}</label>
                             </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="col-span-2" formArrayName="hobbies">
+                    <fieldset>
+                        <legend class="mb-2">
+                            <span class="mr-2">Hobbies</span>
+                            <button type="button"
+                                class="rounded-sm px-4 py-1 bg-gray-200 text-sm shadow-sm hover:bg-gray-300"
+                                (click)="onAddHobbyHandler()">Add New
+                                Hobby</button>
+                        </legend>
+                        <div class="mt-2 space-y-2"
+                            *ngFor="let hobby of signUpForm.get('hobbies').controls; let i = index">
+                            <input type="text" [formControlName]="i" class="w-full block rounded-md h-8 text-sm">
                         </div>
                     </fieldset>
                 </div>
